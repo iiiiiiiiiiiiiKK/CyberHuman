@@ -8,7 +8,7 @@
 
 一个纯前端的娱乐向「赛博人类」人格鉴定终端 · 64 道题库随机组卷 · 16 种人格类型 · 生成可分享的鉴定报告
 
-[![Live Demo](https://img.shields.io/badge/在线体验-CyberHuman-6dffb0?style=for-the-badge&logo=githubpages&logoColor=black)](https://iiiiiiiiiiiiiKK.github.io/CyberHuman/)
+[![Live Demo](https://img.shields.io/badge/在线体验-CyberHuman-6dffb0?style=for-the-badge&logo=githubpages&logoColor=black)](https://iiiiiiiiiiiiikk.github.io/CyberHuman/)
 [![Custom Domain](https://img.shields.io/badge/自定义域名-CyberHuman.321.market-a97bff?style=for-the-badge&logo=cloudflare&logoColor=white)](https://CyberHuman.321.market)
 [![X](https://img.shields.io/badge/𝕏-@0xkillcoin-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/0xkillcoin)
 
@@ -305,7 +305,7 @@ npm run preview    # http://127.0.0.1:4173/
 > [!NOTE]
 > 若所在网络存在 TLS 中间人导致 `npm install` 报 `SELF_SIGNED_CERT_IN_CHAIN`，
 > 可临时用 `npm install --strict-ssl=false`，或修复本机根证书。
-> 仓库内 `.npmrc` 已设 `strict-ssl=false` 以便受限网络安装。
+> 本仓库不提交 `.npmrc`，避免把本机的证书绕过设置带给其他人。
 
 ---
 
@@ -371,35 +371,65 @@ CyberHuman/
 
 ## 🌐 部署
 
-### GitHub Pages（本仓库已配置）
+### 在线地址
 
-仓库内置 `.github/workflows/deploy.yml`：推送 `main` 分支 → 自动构建 → 发布到 Pages。
+| 方式 | 地址 |
+| --- | --- |
+| GitHub Pages（已上线） | https://iiiiiiiiiiiiikk.github.io/CyberHuman/ |
+| 自定义域名（待绑定） | https://CyberHuman.321.market |
 
-**开启方式**：仓库 `Settings → Pages → Build and deployment → Source` 选择 **GitHub Actions**。
+### GitHub Pages（已配置并运行中）
 
-随后每次推送自动部署到：
+仓库内置 `.github/workflows/deploy.yml`，流程是：
 
 ```
-https://iiiiiiiiiiiiiKK.github.io/CyberHuman/
+push main → 安装依赖 → 跑 npm test（1533 项断言）→ 构建 → 上传 artifact → 发布 Pages
 ```
+
+部署源已设为 **GitHub Actions**（`Settings → Pages → Build and deployment → Source`），
+每次推送 `main` 都会自动重新部署。自测不通过时**不会**发布，避免把坏构建推上线。
 
 ### 绑定自定义域名 CyberHuman.321.market
 
-1. 仓库 `Settings → Pages → Custom domain` 填 `CyberHuman.321.market`（会自动写入 `CNAME` 文件）
-2. 到域名服务商添加 DNS 记录：
+域名目前解析在 **DNSPod**（`ellipse.dnspod.net` / `archery.dnspod.net`）。
 
-   | 类型 | 名称 | 值 |
-   | --- | --- | --- |
-   | `CNAME` | `cyberhuman` | `iiiiiiiiiiiiiKK.github.io` |
+**第 1 步：加 DNS 记录**（DNSPod 控制台，`321.market` 域名下）
 
-   > 如果 `321.market` 的主域名解析不在你手上，也可以用 `A` 记录指向 GitHub Pages 的四个 IP：
-   > `185.199.108.153` / `185.199.109.153` / `185.199.110.153` / `185.199.111.153`
+| 类型 | 主机记录 | 记录值 | TTL |
+| --- | --- | --- | --- |
+| `CNAME` | `cyberhuman` | `iiiiiiiiiiiiikk.github.io` | 600 |
 
-3. 等 DNS 生效后勾选 **Enforce HTTPS**
+> CNAME 的值建议用**全小写**的 `iiiiiiiiiiiiikk.github.io`（GitHub 用户名大小写不敏感，
+> 但 CNAME 记录用小写最稳）。
+>
+> 如果之后想用 `321.market` 裸域名而不是子域名，那就要改用 `A` 记录指向 GitHub Pages 的
+> 四个 IP：`185.199.108.153` / `185.199.109.153` / `185.199.110.153` / `185.199.111.153`。
+> 但裸域名只能绑一个项目站，会把整站占掉，所以这里推荐用子域名。
+
+**第 2 步：验证 DNS 生效**
+
+```bash
+# 看到 CNAME 指向 iiii...github.io 就对了
+nslookup CyberHuman.321.market
+```
+
+**第 3 步：在 GitHub 填域名**
+
+`Settings → Pages → Custom domain` 填 `CyberHuman.321.market` → **Save**。
+GitHub 会自己往仓库写一个 `CNAME` 文件（不需要手动提交）。
+
+**第 4 步：等证书**
+
+DNS 生效后等几分钟到一小时，GitHub 会自动签发证书。
+`Settings → Pages` 上的 **Enforce HTTPS** 能勾上时，说明证书已就绪。
 
 > [!IMPORTANT]
-> 一定要**先配好 DNS 再填自定义域名**。一旦填了域名，GitHub 会把 `github.io` 地址
-> 重定向到你的域名，DNS 没生效时站点会打不开。
+> **顺序很重要**：先配 DNS、确认解析生效，再填自定义域名。
+> 一旦 GitHub 记录了自定义域名，`github.io` 地址会被 301 重定向到你的域名；
+> 如果这时 DNS 还没生效，站点会直接打不开，看起来像「部署失败」。
+>
+> 填错了想回退：删掉 `Settings → Pages` 里的 Custom domain，
+> 再删掉仓库根目录的 `CNAME` 文件，`github.io` 地址就会恢复。
 
 ### 其他平台
 
@@ -491,7 +521,8 @@ npm run build
 ## 🔗 链接
 
 - **作者**：[𝕏 @0xkillcoin](https://x.com/0xkillcoin)
-- **在线体验**：https://iiiiiiiiiiiiiKK.github.io/CyberHuman/
+- **在线体验**：https://iiiiiiiiiiiiikk.github.io/CyberHuman/
+- **自定义域名**：https://CyberHuman.321.market
 - **问题反馈**：[Issues](https://github.com/iiiiiiiiiiiiiKK/CyberHuman/issues)
 
 ---
