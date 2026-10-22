@@ -376,7 +376,7 @@ CyberHuman/
 | 方式 | 地址 |
 | --- | --- |
 | GitHub Pages（已上线） | https://iiiiiiiiiiiiikk.github.io/CyberHuman/ |
-| 自定义域名（待绑定） | https://CyberHuman.321.market |
+| 自定义域名（**已上线**） | https://CyberHuman.321.market |
 
 ### GitHub Pages（已配置并运行中）
 
@@ -389,47 +389,49 @@ push main → 安装依赖 → 跑 npm test（1533 项断言）→ 构建 → �
 部署源已设为 **GitHub Actions**（`Settings → Pages → Build and deployment → Source`），
 每次推送 `main` 都会自动重新部署。自测不通过时**不会**发布，避免把坏构建推上线。
 
-### 绑定自定义域名 CyberHuman.321.market
+### 自定义域名 CyberHuman.321.market（**已绑定并生效**）
 
-域名目前解析在 **DNSPod**（`ellipse.dnspod.net` / `archery.dnspod.net`）。
+当前状态：DNS 已解析、证书已签发（Let's Encrypt）、`Enforce HTTPS` 已开启，
+`github.io` 地址会 301 重定向到自定义域名。
 
-**第 1 步：加 DNS 记录**（DNSPod 控制台，`321.market` 域名下）
+**配置记录（已完成，供参考/重装时复现）**
+
+域名解析在 **DNSPod**（`ellipse.dnspod.net` / `archery.dnspod.net`）：
 
 | 类型 | 主机记录 | 记录值 | TTL |
 | --- | --- | --- | --- |
 | `CNAME` | `cyberhuman` | `iiiiiiiiiiiiikk.github.io` | 600 |
 
-> CNAME 的值建议用**全小写**的 `iiiiiiiiiiiiikk.github.io`（GitHub 用户名大小写不敏感，
-> 但 CNAME 记录用小写最稳）。
->
-> 如果之后想用 `321.market` 裸域名而不是子域名，那就要改用 `A` 记录指向 GitHub Pages 的
-> 四个 IP：`185.199.108.153` / `185.199.109.153` / `185.199.110.153` / `185.199.111.153`。
-> 但裸域名只能绑一个项目站，会把整站占掉，所以这里推荐用子域名。
+仓库内保留了 `public/CNAME`（内容为 `cyberhuman.321.market`），
+Vite 构建时会把它复制到 `dist/`，这样每次重新部署都不会丢域名。
 
-**第 2 步：验证 DNS 生效**
+> 如果之后想改用 `321.market` 裸域名，需要把 CNAME 换成 `A` 记录指向
+> `185.199.108.153` / `185.199.109.153` / `185.199.110.153` / `185.199.111.153`。
+> 但裸域名只能绑一个项目站，会把整站占掉，所以推荐保持子域名。
 
-```bash
-# 看到 CNAME 指向 iiii...github.io 就对了
-nslookup CyberHuman.321.market
-```
+**重装/迁移时的操作顺序**
 
-**第 3 步：在 GitHub 填域名**
-
-`Settings → Pages → Custom domain` 填 `CyberHuman.321.market` → **Save**。
-GitHub 会自己往仓库写一个 `CNAME` 文件（不需要手动提交）。
-
-**第 4 步：等证书**
-
-DNS 生效后等几分钟到一小时，GitHub 会自动签发证书。
-`Settings → Pages` 上的 **Enforce HTTPS** 能勾上时，说明证书已就绪。
+1. 先加 DNS 记录，用 `nslookup CyberHuman.321.market` 确认指向 `iiiiiiiiiiiiikk.github.io`
+2. 再去 `Settings → Pages → Custom domain` 填域名（或等 `public/CNAME` 生效）
+3. 等证书签发（通常几分钟），然后再勾 **Enforce HTTPS**
 
 > [!IMPORTANT]
-> **顺序很重要**：先配 DNS、确认解析生效，再填自定义域名。
-> 一旦 GitHub 记录了自定义域名，`github.io` 地址会被 301 重定向到你的域名；
-> 如果这时 DNS 还没生效，站点会直接打不开，看起来像「部署失败」。
+> **顺序不能反**。一旦 GitHub 记录了自定义域名，`github.io` 会被 301 重定向到该域名；
+> 如果此时 DNS 还没生效，站点会直接打不开，看起来像「部署失败」。
 >
-> 填错了想回退：删掉 `Settings → Pages` 里的 Custom domain，
-> 再删掉仓库根目录的 `CNAME` 文件，`github.io` 地址就会恢复。
+> 填错了想回退：删掉 `Settings → Pages` 里的 Custom domain，再删掉 `public/CNAME`，
+> `github.io` 地址就会恢复。
+
+**已完成的验证**
+
+| 检查项 | 结果 |
+| --- | --- |
+| DNS CNAME | `CyberHuman.321.market → iiiiiiiiiiiiikk.github.io` |
+| HTTPS 证书 | Let's Encrypt，有效期至 2027-01-21 |
+| `https://CyberHuman.321.market/` | 200 |
+| `github.io → 自定义域名` | 301 重定向 |
+| 移动端 390×844 | 无横向溢出，主按钮 50px |
+| 完整答题 + 结果页 | 通过，无 4xx / 无控制台错误 |
 
 ### 其他平台
 
