@@ -1,0 +1,37 @@
+# 依赖
+node_modules/
+
+# 构建产物
+dist/
+*.tsbuildinfo
+
+# 测试输出
+.e2e-out/
+.layout-out/
+.share-check/
+.stress-out/
+.selftest-tmp/
+.diag-tmp/
+.artifacts/
+
+# 本地隧道 / 工具二进制
+.tools/
+
+# 本地环境 / 凭据
+.dev-server.pid
+.env
+.env.local
+.npmrc
+*.token
+!*.token.example
+
+# 编辑器/系统
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# 日志
+*.log
+npm-debug.log*
