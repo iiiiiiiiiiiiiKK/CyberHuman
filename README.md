@@ -8,9 +8,9 @@
 
 一个纯前端的娱乐向「赛博人类」人格鉴定终端 · 64 道题库随机组卷 · 16 种人格类型 · 生成可分享的鉴定报告
 
-[![Live Demo](https://img.shields.io/badge/在线体验-CyberHuman-6dffb0?style=for-the-badge&logo=githubpages&logoColor=black)](https://iiiiiiiiiiiiikk.github.io/CyberHuman/)
-[![Custom Domain](https://img.shields.io/badge/自定义域名-CyberHuman.321.market-a97bff?style=for-the-badge&logo=cloudflare&logoColor=white)](https://CyberHuman.321.market)
+[![Live Demo](https://img.shields.io/badge/在线体验-CyberHuman.321.market-6dffb0?style=for-the-badge&logo=googlechrome&logoColor=black)](https://CyberHuman.321.market)
 [![X](https://img.shields.io/badge/𝕏-@0xkillcoin-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/0xkillcoin)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-已部署-a97bff?style=for-the-badge&logo=githubpages&logoColor=white)](https://iiiiiiiiiiiiikk.github.io/CyberHuman/)
 
 [![React](https://img.shields.io/badge/React-18.3-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -18,6 +18,16 @@
 [![Tests](https://img.shields.io/badge/tests-1533%20%2B%2062%20passing-6dffb0?style=flat-square)](#-测试)
 [![License](https://img.shields.io/badge/license-MIT-6dffb0?style=flat-square)](LICENSE)
 [![No Backend](https://img.shields.io/badge/backend-none-a97bff?style=flat-square)](#-隐私与数据)
+
+</div>
+
+---
+
+<div align="center">
+
+### 👉 [**CyberHuman.321.market**](https://CyberHuman.321.market) 👈
+
+**点开就能测，不用注册，答案不上传**
 
 </div>
 
@@ -35,7 +45,7 @@
 你有没有想过，自己每天花在屏幕上的时间、拖延的习惯、看到消息不敢回的那三秒、
 深夜购物车里躺着的东西——加起来会把你变成一个什么样的人？
 
-**赛博人类鉴定所**想用 18 道题测量这件事，然后给你一份看起来很专业的报告：
+**赛博人类鉴定所**会从 64 道题库里随机抽 18 道来测量这件事，然后给你一份看起来很专业的报告：
 
 | 指标 | 示例读数 |
 | --- | --- |
@@ -523,8 +533,8 @@ npm run build
 ## 🔗 链接
 
 - **作者**：[𝕏 @0xkillcoin](https://x.com/0xkillcoin)
-- **在线体验**：https://iiiiiiiiiiiiikk.github.io/CyberHuman/
-- **自定义域名**：https://CyberHuman.321.market
+- **在线体验（主站）**：https://CyberHuman.321.market
+- **GitHub Pages**：https://iiiiiiiiiiiiikk.github.io/CyberHuman/ （301 → 主站）
 - **问题反馈**：[Issues](https://github.com/iiiiiiiiiiiiiKK/CyberHuman/issues)
 
 ---
