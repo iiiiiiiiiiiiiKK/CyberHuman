@@ -35,3 +35,26 @@ Thumbs.db
 # 日志
 *.log
 npm-debug.log*
+
+# 临时调试产物（API 响应等）
+/jobs.json
+/pg.json
+/rd.json
+/rerun.json
+/runs.json
+/runs2.json
+/c.json
+/cn.json
+/t.json
+/r.json
+/p.json
+/me.json
+/create.json
+/repo.json
+/repo2.json
+/patch.json
+/top.json
+/cnameput.json
+/https.json
+/del.json
+/h.json
